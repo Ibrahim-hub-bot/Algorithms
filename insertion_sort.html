@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insertion Sort en JavaScript</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        input {
+            padding: 10px;
+            margin-right: 10px;
+            width: 300px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <h1>Tri par Insertion (Insertion Sort)</h1>
+    <p>Entrez une liste de nombres séparés par des virgules :</p>
+    <input type="text" id="arrayInput" placeholder="Exemple : 34, 7, 23, 32, 5, 62">
+    <button onclick="performInsertionSort()">Trier</button>
+    <div id="result"></div>
+
+    <script>
+        
+        function insertionSort(arr) {
+            for (let i = 1; i < arr.length; i++) {
+                let key = arr[i];
+                let j = i - 1;
+
+                
+                while (j >= 0 && arr[j] > key) {
+                    arr[j + 1] = arr[j];
+                    j--;
+                }
+
+                
+                arr[j + 1] = key;
+            }
+            return arr;
+        }
+
+        
+        function performInsertionSort() {
+            const input = document.getElementById("arrayInput").value;
+            
+            if (!input.trim()) {
+                document.getElementById("result").innerHTML = "Veuillez entrer une liste valide.";
+                return;
+            }
+
+            
+            let arr = input.split(",").map(Number);
+
+            if (arr.some(isNaN)) {
+                document.getElementById("result").innerHTML = "Veuillez entrer uniquement des nombres séparés par des virgules.";
+                return;
+            }
+
+            
+            const sortedArray = insertionSort(arr);
+
+            
+            document.getElementById("result").innerHTML = `
+                <strong>Tableau trié :</strong> ${sortedArray.join(", ")}
+            `;
+        }
+    </script>
+</body>
+</html>
